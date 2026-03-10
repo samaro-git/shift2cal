@@ -277,8 +277,9 @@
   </div>
  
 
-  <section aria-label="Kurze Anleitung">
-    <h2 class="step-heading">So funktioniert Shift2Cal</h2>
+<hr style="margin-top: 2.5rem;">
+    <section aria-label="Kurze Anleitung">
+      <h2 class="step-heading">So funktioniert Shift2Cal</h2>
     <ol>
       <li>XLS-Dienstplan hochladen: Oben über „XLS-Datei auswählen“ die Datei wählen oder in das Feld darunter ziehen.</li>
       <li>Monat prüfen: Das Tabellenblatt mit dem gewünschten Monat auswählen, Monat/Jahr rechts darunter ggf. anpassen.</li>
@@ -294,7 +295,7 @@
   </div>
   <div class="collapse-body" id="dienstzeitenBody">
     <div class="collapse-inner">
-      <p class="dienstzeiten-hint">Diese Dienstzeiten werden bei der Berechnung zugrunde gelegt. Sollte hier eine Änderung gewünscht sein, so kann diese individuell in der Datei „dienstzeiten.json“ vorgenommen werden. Diese kann mit einem beliebigen Editor bearbeitet werden.</p>
+      <p class="dienstzeiten-hint">Diese Dienstzeiten werden bei der Berechnung zugrunde gelegt. Wenn ihr die Software lokal (auf eurem eigenen Rechner / Smartphone) nutzt, könnt ihr sie verändern. Öffnet hierzu dei Datei „dienstzeiten.json“ mit einem beliebigen Editor und speichert die Änderungen ab. Danach klickt ihr einmal auf "diestzeiten.json neu laden".</p>
       <div class="dienstzeiten-reload-row">
         <button type="button" class="btn btn-primary" id="btnReloadDienstzeiten">dienstzeiten.json neu laden</button>
       </div>
@@ -316,5 +317,9 @@
 
   <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
   <script src="app.js"></script>
+  <script src="app.js"></script>
+  <footer class="footer" style="text-align: center; padding: 20px; font-size: 0.85rem; color: #666666; margin-top: 40px;">
+    &copy; 2026 Universitäts-Notfallzentrum | Sektion für digitale Notfallmedizin - <a href="mailto:matthias.roth@uniklinik-freiburg.de" style="color: #004a99; text-decoration: none;">matthias.roth@uniklinik-freiburg.de</a>
+  </footer>
 </body>
 </html>
