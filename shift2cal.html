@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=3.0">
   <title>Shift2Cal – Deine Schichten als Kalendereintrag</title>
   <style>
     :root {
@@ -28,7 +28,7 @@
     .hero {
       text-align: center;
       margin-bottom: 2.5rem;
-      padding: 2rem 1rem;
+      padding: 0 1rem 2rem;
     }
     .hero-title {
       font-size: 3.5rem;
@@ -44,7 +44,7 @@
     .hero-sub {
       font-size: 1.15rem;
       color: var(--muted);
-      margin: 0.5rem 0 0;
+      margin: 0;
       font-weight: 500;
     }
     .step-heading {
@@ -193,25 +193,21 @@
     .sheet-selector { margin-top: 1rem; padding: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
     .sheet-selector-label { margin: 0 0 0.5rem; font-weight: 500; color: var(--text); }
     .sheet-selector select { min-width: 220px; }
+    .logo {
+      display: block;
+      margin: 0 auto 0;
+      max-width: 360px;
+      height: auto;
+    }
   </style>
 </head>
 <body>
+  <img src="pictures/logo_shift2cal.png" alt="Shift2Cal Logo" class="logo">
   <header class="hero">
-    <h1 class="hero-title">Shift2Cal</h1>
     <p class="hero-sub">Deine Schichten als Kalendereintrag</p>
   </header>
 
-  <section aria-label="Kurze Anleitung">
-    <h2 class="step-heading">So funktioniert Shift2Cal</h2>
-    <ol>
-      <li>XLS-Dienstplan hochladen: Oben über „XLS-Datei auswählen“ die Datei wählen oder in das Feld darunter ziehen.</li>
-      <li>Monat prüfen: Das Tabellenblatt mit dem gewünschten Monat auswählen, Monat/Jahr rechts daneben ggf. anpassen.</li>
-      <li>Person wählen: Unter „Person auswählen“ den gewünschten Namen aus der Liste wählen.</li>
-      <li>Kalendereinträge erstellen: Auf „Kalender Einträge erstellen“ klicken, um die Diensttage anzuzeigen.</li>
-      <li>.ics-Datei herunterladen: In der Tabelle den Button „.ics - Download“ nutzen und die Datei in deinem Kalender importieren.</li>
-    </ol>
-    <p class="dienstzeiten-hint">Die Uhrzeiten der Dienste kommen aus der Datei „dienstzeiten.json“. Änderungen daran wirken sich nach einem Klick auf „dienstzeiten.json neu laden“ auf neue Berechnungen aus.</p>
-  </section>
+ 
 
   <h2 class="step-heading">1. Hier Dienstplan als XLS hochladen</h2>
   <div class="upload-section">
@@ -257,9 +253,11 @@
   </div>
 
   <h2 class="step-heading">4. Kalendereinträge erstellen</h2>
+  <p class="dienstzeiten-hint">Achtung: Bitte kontrolliere die Tage und die Zeiten noch einmal, bevor du sie übernimmst!</p>
   <div class="row">
     <button type="button" class="btn btn-primary" id="btnCreate" disabled>Kalender Einträge erstellen</button>
   </div>
+  
 
   <p class="error hidden" id="errorMsg"></p>
 
@@ -277,6 +275,18 @@
       <tbody id="tableBody"></tbody>
     </table>
   </div>
+ 
+
+  <section aria-label="Kurze Anleitung">
+    <h2 class="step-heading">So funktioniert Shift2Cal</h2>
+    <ol>
+      <li>XLS-Dienstplan hochladen: Oben über „XLS-Datei auswählen“ die Datei wählen oder in das Feld darunter ziehen.</li>
+      <li>Monat prüfen: Das Tabellenblatt mit dem gewünschten Monat auswählen, Monat/Jahr rechts darunter ggf. anpassen.</li>
+      <li>Person wählen: Unter „Person auswählen“ den gewünschten Namen aus der Liste wählen.</li>
+      <li>Kalendereinträge erstellen: Auf „Kalender Einträge erstellen“ klicken, um die Diensttage anzuzeigen. Kontrolliere bitte die Einträge. Fehler können sich immer einschleichen!</li>
+      <li>.ics-Datei herunterladen: In der Tabelle den Button „.ics - Download“ nutzen und die Datei in deinem Kalender importieren.</li>
+    </ol>
+  </section>
 
   <div class="collapse-header" id="dienstzeitenHeader" aria-expanded="false">
     <span>Dienstzeiten</span>
