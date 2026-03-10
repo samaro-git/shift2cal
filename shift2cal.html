@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shift2Cal – Deine Schichten als Kalendereintrag</title>
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --muted: #656d76;
+      --accent: #0969da;
+      --green: #1a7f37;
+      --orange: #9a6700;
+      --red: #cf222e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding: 2rem 1rem;
+    }
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(135deg, #0d7377 0%, #14a3a8 50%, #0969da 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin: 0.5rem 0 0;
+      font-weight: 500;
+    }
+    .step-heading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1.5rem 0 0.5rem;
+    }
+    .step-heading:first-of-type { margin-top: 0; }
+    .upload-section { margin-bottom: 1.5rem; }
+    .input-file-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .btn-upload {
+      display: inline-block;
+      padding: 0.85rem 1.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.05s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-upload:hover { opacity: 0.9; }
+    .btn-upload:active { transform: scale(0.98); }
+    .upload-zone {
+      border: 2px dashed var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .upload-zone.dragover { border-color: var(--accent); background: rgba(9,105,218,0.06); }
+    .upload-zone p { margin: 0.5rem 0; color: var(--muted); font-size: 0.9rem; }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.05s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th { background: #eaeef2; font-weight: 600; color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f0f3f6; }
+    .export-cell { white-space: nowrap; }
+    .btn-export {
+      padding: 0.35rem 0.65rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 0.4rem;
+      margin-bottom: 0.25rem;
+      color: #fff;
+      transition: opacity 0.2s;
+    }
+    .btn-export:hover { opacity: 0.9; }
+    .btn-ics   { background: #0d7377; }
+    .status { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
+    .status-success { color: var(--green); }
+    .error { color: var(--red); font-size: 0.9rem; margin-top: 0.5rem; }
+    .hidden { display: none; }
+    .collapse-header {
+      margin-top: 2.5rem;
+      padding: 0.75rem 1rem;
+      background: #eaeef2;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .collapse-header:hover { background: #dce0e5; }
+    .collapse-header .arrow { transition: transform 0.2s; }
+    .collapse-header.open .arrow { transform: rotate(180deg); }
+    .collapse-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.25s ease-out;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      background: var(--surface);
+    }
+    .collapse-body.open { max-height: 1200px; }
+    .collapse-inner { padding: 1rem; }
+    .dienstzeiten-hint { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9rem; line-height: 1.45; }
+    .dienstzeiten-reload-row { margin-bottom: 0.75rem; }
+    .dienstzeiten-table { font-size: 0.85rem; }
+    .dienstzeiten-table td { padding: 0.35rem 0.5rem; }
+    .sheet-selector { margin-top: 1rem; padding: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+    .sheet-selector-label { margin: 0 0 0.5rem; font-weight: 500; color: var(--text); }
+    .sheet-selector select { min-width: 220px; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1 class="hero-title">Shift2Cal</h1>
+    <p class="hero-sub">Deine Schichten als Kalendereintrag</p>
+  </header>
+
+  <section aria-label="Kurze Anleitung">
+    <h2 class="step-heading">So funktioniert Shift2Cal</h2>
+    <ol>
+      <li>XLS-Dienstplan hochladen: Oben über „XLS-Datei auswählen“ die Datei wählen oder in das Feld darunter ziehen.</li>
+      <li>Monat prüfen: Das Tabellenblatt mit dem gewünschten Monat auswählen, Monat/Jahr rechts daneben ggf. anpassen.</li>
+      <li>Person wählen: Unter „Person auswählen“ den gewünschten Namen aus der Liste wählen.</li>
+      <li>Kalendereinträge erstellen: Auf „Kalender Einträge erstellen“ klicken, um die Diensttage anzuzeigen.</li>
+      <li>.ics-Datei herunterladen: In der Tabelle den Button „.ics - Download“ nutzen und die Datei in deinem Kalender importieren.</li>
+    </ol>
+    <p class="dienstzeiten-hint">Die Uhrzeiten der Dienste kommen aus der Datei „dienstzeiten.json“. Änderungen daran wirken sich nach einem Klick auf „dienstzeiten.json neu laden“ auf neue Berechnungen aus.</p>
+  </section>
+
+  <h2 class="step-heading">1. Hier Dienstplan als XLS hochladen</h2>
+  <div class="upload-section">
+    <input type="file" id="fileInput" accept=".xlsx,.xls" class="input-file-hidden">
+    <label for="fileInput" class="btn btn-upload">XLS-Datei auswählen</label>
+    <div class="upload-zone" id="uploadZone">
+      <p>oder Datei hierher ziehen</p>
+      <p class="status" id="uploadStatus">Keine Datei hochgeladen</p>
+    </div>
+  </div>
+
+  <div id="sheetSelectorContainer" class="sheet-selector hidden">
+    <p class="sheet-selector-label">Welchen Monat möchtest du importieren?</p>
+    <div class="row">
+      <select id="sheetDropdown" aria-label="Tabellenblatt / Monat auswählen"></select>
+    </div>
+  </div>
+
+  <h2 class="step-heading">2. Zeitraum auswählen</h2>
+  <div class="row" id="zeitraumRow">
+    <select id="monthSelect" aria-label="Monat">
+      <option value="1">Januar</option>
+      <option value="2">Februar</option>
+      <option value="3">März</option>
+      <option value="4">April</option>
+      <option value="5">Mai</option>
+      <option value="6">Juni</option>
+      <option value="7">Juli</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">Oktober</option>
+      <option value="11">November</option>
+      <option value="12">Dezember</option>
+    </select>
+    <select id="yearSelect" aria-label="Jahr"></select>
+  </div>
+
+  <h2 class="step-heading">3. Person auswählen</h2>
+  <div class="row" id="selectRow">
+    <select id="nameSelect" disabled aria-label="Person auswählen">
+      <option value="">— Person wählen —</option>
+    </select>
+  </div>
+
+  <h2 class="step-heading">4. Kalendereinträge erstellen</h2>
+  <div class="row">
+    <button type="button" class="btn btn-primary" id="btnCreate" disabled>Kalender Einträge erstellen</button>
+  </div>
+
+  <p class="error hidden" id="errorMsg"></p>
+
+  <div class="table-wrap hidden" id="tableWrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Datum</th>
+          <th>Kürzel</th>
+          <th>Uhrzeit Start</th>
+          <th>Uhrzeit Ende</th>
+          <th>Export</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="collapse-header" id="dienstzeitenHeader" aria-expanded="false">
+    <span>Dienstzeiten</span>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="collapse-body" id="dienstzeitenBody">
+    <div class="collapse-inner">
+      <p class="dienstzeiten-hint">Diese Dienstzeiten werden bei der Berechnung zugrunde gelegt. Sollte hier eine Änderung gewünscht sein, so kann diese individuell in der Datei „dienstzeiten.json“ vorgenommen werden. Diese kann mit einem beliebigen Editor bearbeitet werden.</p>
+      <div class="dienstzeiten-reload-row">
+        <button type="button" class="btn btn-primary" id="btnReloadDienstzeiten">dienstzeiten.json neu laden</button>
+      </div>
+      <div class="table-wrap">
+        <table class="dienstzeiten-table">
+          <thead>
+            <tr>
+              <th>Kürzel</th>
+              <th>Bezeichnung</th>
+              <th>Start</th>
+              <th>Ende</th>
+            </tr>
+          </thead>
+          <tbody id="dienstzeitenBodyRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

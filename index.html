@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shift2Call | Sektion für digitale Notfallmedizin</title>
+    <style>
+        :root {
+            --primary-color: #004a99; /* Typisches Uniklinik-Blau */
+            --secondary-color: #003366;
+            --accent-color: #eef2f6;
+            --text-color: #333333;
+            --light-text: #666666;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header-section {
+            background-color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Logo Styling */
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            max-width: 280px; /* Größe des Logos anpassen */
+            height: auto;
+        }
+
+        .header-section h2 {
+            font-weight: 400;
+            font-size: 1rem;
+            margin: 0;
+            color: var(--light-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+            margin: 8px 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .header-section h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--secondary-color);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: var(--white);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .intro-text p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .intro-text ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 250px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        @media (max-width: 600px) {
+            .header-section h1 { font-size: 1.5rem; }
+            .card { padding: 25px; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header-section">
+    <div class="logo-container">
+        <img src="Logo_shift2call.png" alt="Shift2Call Logo">
+    </div>
+    <h2>Zentrum für Notfall- und Rettungsmedizin</h2>
+    <h1>Universitäts-Notfallzentrum (UNZ)</h1>
+    <h3>Sektion für digitale Notfallmedizin</h3>
+</header>
+
+<main class="main-content">
+    <div class="card">
+        <div class="intro-text">
+            <p><strong>Hallo liebe Kolleginnen und Kollegen,</strong></p>
+            <p>
+                jeden Monat erhaltet ihr einen aktuellen Dienstplan als Excel-Datei. Viele tragen sich ihre Termine digital in ihren Terminkalender ein. Um dir diese Arbeit zu erleichtern, haben wir <strong>Shift2Call</strong> entwickelt. Dieses Tool unterstützt dich dabei, deine persönlichen Dienste ohne manuellen Aufwand direkt in deinen Kalender zu integrieren.
+            </p>
+            <p>
+                Das Programm analysiert deine individuellen Dienste und stellt daraus fertige Kalendereinträge zusammen. Diese kannst du mit nur einem Klick als fertigen Termin in deinen Zeitplan übernehmen.
+            </p>
+            <p>
+                Zur Nutzung stehen dir zwei Wege offen:
+            </p>
+            <ul>
+                <li><strong>Lokale Nutzung:</strong> Lade dir das Programm als ZIP-Datei herunter. Du kannst das Tool so vollständig offline und ohne jegliche Datenverbindung nach außen nutzen. Entpacke die Datei einfach in einen Ordner und führe die <em>shift2call.html</em> aus. Diese startet automatisch im Browser deiner Wahl. Der Rest ist vermutlich selbsterklärend.</li>
+                <li><strong>Online-Nutzung:</strong> Alternativ kannst du das Tool direkt und unkompliziert über unsere Weboberfläche nutzen.</li>
+            </ul>
+        </div>
+
+        <div class="intro-text">
+    <p>Viel Spaß dabei! Melde dich einfach per Mail an 
+       <a href="mailto:matthias.roth@uniklinik-freiburg.de" style="color: var(--primary-color); text-decoration: none; border-bottom: 1px solid var(--primary-color);">matthias.roth@uniklinik-freiburg.de</a>, 
+       solltest du Fragen oder Probleme haben.
+    </p>
+</div>
+
+        <div class="button-group">
+            <a href="Shift2Call.html" class="btn btn-primary">Jetzt online nutzen</a>
+            <a href="Shift2Call.zip" class="btn btn-secondary" download>ZIP-Datei herunterladen</a>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    &copy; 2026 Universitäts-Notfallzentrum | Sektion für digitale Notfallmedizin
+</footer>
+
+</body>
+</html>
