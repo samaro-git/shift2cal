@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shift2Cal – Dienstplan als Kalendereintrag</title>
+    <style>
+        :root {
+            --primary-color: #0969da;
+            --secondary-color: #003366;
+            --accent-color: #eef2f6;
+            --text-color: #333333;
+            --light-text: #666666;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header-section {
+            background-color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Logo Styling */
+        .logo-container {
+            margin-bottom: 12px;
+        }
+        .logo-container img {
+            max-width: 220px;
+            height: auto;
+            display: inline-block;
+        }
+        .logo-shift2cal {
+            margin-top: 12px;
+        }
+        .logo-shift2cal img {
+            width: 50%;
+            max-width: 380px;
+            height: auto;
+            display: inline-block;
+        }
+
+        .header-section h2 {
+            font-weight: 400;
+            font-size: 1rem;
+            margin: 0 0 8px;
+            color: var(--light-text);
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+            margin: 8px 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: var(--white);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .intro-text p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .intro-text ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+        .intro-text li + li {
+            margin-top: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 250px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .header-section h1 { font-size: 1.5rem; }
+            .card { padding: 25px; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header-section">
+    <h1>Shift2Cal</h1>
+    <h2 style="text-transform:none; letter-spacing:normal; font-size:1rem;">Dienstplan als Kalendereintrag</h2>
+    <div class="logo-shift2cal" aria-hidden="true">
+        <img src="pictures/logo_shift2cal.png" alt="Shift2Cal Logo">
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="card">
+        <div class="intro-text">
+            <p>
+                <strong>Shift2Cal</strong> wandelt Dienstpläne aus Excel-Dateien (.xls / .xlsx) in Kalendereinträge (.ics) um. So kannst du Schichten ohne manuelles Abtippen in deinen Kalender übernehmen.
+            </p>
+            <p>
+                Du wählst Monat, Person und erhältst eine Übersicht; einzelne Tage oder alle Einträge auf einmal kannst du als iCalendar-Datei exportieren.
+            </p>
+            <p>
+                Zur Nutzung stehen zwei Wege offen:
+            </p>
+            <ul>
+                <li><strong>Lokal / offline:</strong> ZIP-Datei herunterladen, entpacken und <em>shift2cal.html</em> im Browser öffnen. Es werden keine Daten an einen Server gesendet. Bei dieser Art der Nutzung kannst du auch die Dienstzeiten im .json - File nach deinen Wünschen anpassen und erweitern.</li>
+                <li><strong>Online:</strong> Die gleiche Oberfläche direkt im Browser nutzen (siehe Button unten).</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <a href="shift2cal.html" class="btn btn-primary">Jetzt online nutzen</a>
+            <a id="download-zip" href="downloads/shift2cal.zip" class="btn btn-secondary" download="shift2cal.zip">ZIP-Datei herunterladen</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
